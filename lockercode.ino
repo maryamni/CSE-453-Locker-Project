@@ -24,7 +24,9 @@ SoftwareSerial RFIDReader(RxPin,TxPin);
 
 
 String RFIDTAG=""; //Holds the RFID Code read from a tag
-String DisplayTAG = "3B00BB6CCA"; //Holds the last displayed RFID Tag
+//String DisplayTAG = "3B00BB6CCA"; //Holds the last displayed RFID Tag
+
+String DisplayTAG[4] = {"3B00BB6CCA","5C00B771DB","06000DCAFF","06000DCB01"};
 
 void setup() 
 {
@@ -69,7 +71,8 @@ void loop()
   }
   
   //This only displays a tag once, unless another tag is scanned
-  if(RFIDTAG==DisplayTAG)
+  for(int j=0;j<4;j++){
+  if(RFIDTAG==DisplayTAG[j])
   {
     Serial.println("success");
     digitalWrite(LED_BUILTIN, HIGH);
@@ -77,9 +80,9 @@ void loop()
     
     end();
   }
+  }
 RFIDTAG="";
 digitalWrite(LED_BUILTIN, LOW);
-  
 }
 
 void ReadSerial(String &ReadTagString)
